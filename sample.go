@@ -22,7 +22,7 @@ func (p *SampleProvider) NewSample() framework.Samplable {
 }
 
 func (p *SampleProvider) GetName() string {
-	return "||" + p.name
+	return "|| " + p.name
 }
 
 func (p *SampleProvider) SetName(name string) {
