@@ -25,6 +25,12 @@ func (r *RouteProvider) NewRouter() framework.Routable {
 	return r
 }
 
+func (r *RouteProvider) SubRouter() framework.Routable {
+	sub := new(RouteProvider)
+	sub.mux = r.mux.PathPrefix("/products").Subrouter()
+	return sub
+}
+
 func (r *RouteProvider) Get(path string, fn func(http.ResponseWriter, *http.Request)) {
 	r.mux.HandleFunc(path, fn).Methods("GET")
 }
