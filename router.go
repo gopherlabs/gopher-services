@@ -67,6 +67,10 @@ func (r *RouteProvider) All(path string, fn func(http.ResponseWriter, *http.Requ
 	r.mux.HandleFunc(path, fn)
 }
 
+func (r *RouteProvider) NotFound(fn func(http.ResponseWriter, *http.Request)) {
+	r.mux.NotFoundHandler = http.HandlerFunc(fn)
+}
+
 func (r *RouteProvider) Serve() {
 	http.ListenAndServe("0.0.0.0:3000", r.mux)
 }
