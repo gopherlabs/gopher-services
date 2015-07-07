@@ -59,7 +59,7 @@ func (r *RouteProvider) Options(path string, fn func(http.ResponseWriter, *http.
 	r.mux.HandleFunc(path, fn).Methods("OPTIONS")
 }
 
-func (r *RouteProvider) Match(path string, fn func(http.ResponseWriter, *http.Request), verbs ...string) {
+func (r *RouteProvider) Match(path string, fn func(http.ResponseWriter, *http.Request), verbs []string) {
 	r.mux.HandleFunc(path, fn).Methods(verbs...)
 }
 
