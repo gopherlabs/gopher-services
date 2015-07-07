@@ -79,4 +79,4 @@ func (r *RouteProvider) Vars(req *http.Request) map[string]string {
 	return mux.Vars(req)
 }
 
-func (r *RouteProvider) Use(mw framework.Middlewarable) {}
+func (r *RouteProvider) Use(mw func(rw http.ResponseWriter, req *http.Request, next func())) {}
