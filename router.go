@@ -31,31 +31,31 @@ func (r *RouteProvider) SubRouter() framework.Routable {
 	return sub
 }
 
-func (r *RouteProvider) Get(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Get(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("GET")
 }
 
-func (r *RouteProvider) Head(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Head(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("HEAD")
 }
 
-func (r *RouteProvider) Post(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Post(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("POST")
 }
 
-func (r *RouteProvider) Put(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Put(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("PUT")
 }
 
-func (r *RouteProvider) Patch(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Patch(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("PATCH")
 }
 
-func (r *RouteProvider) Delete(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Delete(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("DELETE")
 }
 
-func (r *RouteProvider) Options(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) Options(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("OPTIONS")
 }
 
@@ -63,11 +63,11 @@ func (r *RouteProvider) Match(path string, fn func(http.ResponseWriter, *http.Re
 	r.mux.HandleFunc(path, fn).Methods(verbs...)
 }
 
-func (r *RouteProvider) All(path string, fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) All(path string, fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn)
 }
 
-func (r *RouteProvider) NotFound(fn func(http.ResponseWriter, *http.Request)) {
+func (r *RouteProvider) NotFound(fn func(http.ResponseWriter, *http.Request), mw ...framework.MiddlewareHandler) {
 	r.mux.NotFoundHandler = http.HandlerFunc(fn)
 }
 
