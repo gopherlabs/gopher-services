@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gopherlabs/gopher-framework"
-	log "github.com/gopherlabs/gopher-services/vendor/_nuts/github.com/Sirupsen/logrus"
+	log "github.com/gopherlabs/gopher-providers-logrus"
 )
 
 type LogProvider struct {

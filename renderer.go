@@ -3,7 +3,7 @@ package services
 import (
 	"net/http"
 
-	"github.com/gopherlabs/gopher-services/vendor/_nuts/github.com/unrolled/render"
+	"github.com/gopherlabs/gopher-providers-render"
 )
 
 type RenderProvider struct {

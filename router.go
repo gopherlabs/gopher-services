@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	f "github.com/gopherlabs/gopher-framework"
-	"github.com/gopherlabs/gopher-services/vendor/_nuts/github.com/gorilla/mux"
+	"github.com/gopherlabs/gopher-providers-mux"
 )
 
 type RouteProvider struct {

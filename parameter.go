@@ -3,7 +3,7 @@ package services
 import (
 	"net/http"
 
-	"github.com/gopherlabs/gopher-services/vendor/_nuts/github.com/gorilla/mux"
+	"github.com/gopherlabs/gopher-providers-mux"
 )
 
 type ParameterProvider struct{}
