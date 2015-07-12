@@ -14,6 +14,7 @@ type RouteProvider struct {
 }
 
 func (r *RouteProvider) Register(config map[string]interface{}) interface{} {
+	r.mux = mux.NewRouter()
 	return r
 }
 
@@ -26,11 +27,13 @@ func (r *RouteProvider) NewRouter() f.Routable {
 	return r
 }
 
+/*
 func (r *RouteProvider) SubRouter() f.Routable {
 	sub := new(RouteProvider)
 	sub.mux = r.mux.PathPrefix("/products").Subrouter()
 	return sub
 }
+*/
 
 func (r *RouteProvider) Get(path string, fn f.HandlerFn, mw ...f.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("GET")
