@@ -21,7 +21,7 @@ func (l *LogProvider) Register(config map[string]interface{}) interface{} {
 }
 
 func (l *LogProvider) GetKey() string {
-	return "LOGGER"
+	return framework.LOGGER
 }
 
 func (l *LogProvider) NewLog() framework.Loggable {

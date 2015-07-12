@@ -3,6 +3,7 @@ package services
 import (
 	"net/http"
 
+	"github.com/gopherlabs/gopher-framework"
 	"github.com/gopherlabs/gopher-providers-mux"
 )
 
@@ -13,7 +14,7 @@ func (p ParameterProvider) Register(config map[string]interface{}) interface{} {
 }
 
 func (l ParameterProvider) GetKey() string {
-	return "PARAMS"
+	return framework.PARAMS
 }
 
 func (p ParameterProvider) PathParams(req *http.Request) map[string]string {

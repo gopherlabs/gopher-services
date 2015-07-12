@@ -3,6 +3,7 @@ package services
 import (
 	"net/http"
 
+	"github.com/gopherlabs/gopher-framework"
 	"github.com/gopherlabs/gopher-providers-render"
 )
 
@@ -16,7 +17,7 @@ func (r RenderProvider) Register(config map[string]interface{}) interface{} {
 }
 
 func (l RenderProvider) GetKey() string {
-	return "RENDERER"
+	return framework.RENDERER
 }
 
 func (r RenderProvider) View(rw http.ResponseWriter, status int, name string, binding interface{}) {

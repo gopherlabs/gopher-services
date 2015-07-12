@@ -3,6 +3,7 @@ package services
 import (
 	"net/http"
 
+	"github.com/gopherlabs/gopher-framework"
 	f "github.com/gopherlabs/gopher-framework"
 	"github.com/gopherlabs/gopher-providers-mux"
 )
@@ -17,7 +18,7 @@ func (r *RouteProvider) Register(config map[string]interface{}) interface{} {
 }
 
 func (r *RouteProvider) GetKey() string {
-	return "ROUTER"
+	return framework.ROUTER
 }
 
 func (r *RouteProvider) NewRouter() f.Routable {
