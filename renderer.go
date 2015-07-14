@@ -20,30 +20,34 @@ func (l RenderProvider) GetKey() string {
 	return framework.RENDERER
 }
 
-func (r RenderProvider) Data(rw http.ResponseWriter, status int, data []byte) {
-	r.render.Data(rw, status, data)
-}
-
-func (r RenderProvider) Text(rw http.ResponseWriter, data string, status ...int) {
+func getStatus(status []int) int {
 	if len(status) > 0 {
-		r.render.Text(rw, status[0], data)
+		return status[0]
 	} else {
-		r.render.Text(rw, http.StatusOK, data)
+		return http.StatusOK
 	}
 }
 
-func (r RenderProvider) JSON(rw http.ResponseWriter, status int, data interface{}) {
-	r.render.JSON(rw, status, data)
+func (r RenderProvider) Data(rw http.ResponseWriter, data []byte, status ...int) {
+	r.render.Data(rw, getStatus(status), data)
 }
 
-func (r RenderProvider) JSONP(rw http.ResponseWriter, status int, callback string, data interface{}) {
-	r.render.JSONP(rw, status, callback, data)
+func (r RenderProvider) Text(rw http.ResponseWriter, data string, status ...int) {
+	r.render.Text(rw, getStatus(status), data)
 }
 
-func (r RenderProvider) XML(rw http.ResponseWriter, status int, data interface{}) {
-	r.render.XML(rw, status, data)
+func (r RenderProvider) JSON(rw http.ResponseWriter, data interface{}, status ...int) {
+	r.render.JSON(rw, getStatus(status), data)
 }
 
-func (r RenderProvider) View(rw http.ResponseWriter, status int, name string, binding interface{}) {
-	r.render.HTML(rw, status, name, binding)
+func (r RenderProvider) JSONP(rw http.ResponseWriter, callback string, data interface{}, status ...int) {
+	r.render.JSONP(rw, getStatus(status), callback, data)
+}
+
+func (r RenderProvider) XML(rw http.ResponseWriter, data interface{}, status ...int) {
+	r.render.XML(rw, getStatus(status), data)
+}
+
+func (r RenderProvider) View(rw http.ResponseWriter, name string, binding interface{}, status ...int) {
+	r.render.HTML(rw, getStatus(status), name, binding)
 }
