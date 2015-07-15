@@ -3,6 +3,8 @@ package services
 import (
 	"net/http"
 
+	"strconv"
+
 	"github.com/gopherlabs/gopher-framework"
 	f "github.com/gopherlabs/gopher-framework"
 	"github.com/gopherlabs/gopher-providers-mux"
@@ -10,10 +12,14 @@ import (
 
 type RouteProvider struct {
 	http.Handler
-	mux *mux.Router
+	mux    *mux.Router
+	config f.ConfigRouter
 }
 
-func (r *RouteProvider) Register(config map[string]interface{}) interface{} {
+func (r *RouteProvider) Register(c *f.Container, config interface{}) interface{} {
+	r.config = config.(f.ConfigRouter)
+	//	c.Log.Info("|   > Host: %s", r.config.Host)
+	//	c.Log.Info("|   > Port: %d", r.config.Port)
 	r.mux = mux.NewRouter()
 	return r
 }
@@ -71,7 +77,7 @@ func (r *RouteProvider) NotFound(fn f.HandlerFn, mw ...f.MiddlewareHandler) {
 }
 
 func (r *RouteProvider) Serve() {
-	http.ListenAndServe("0.0.0.0:3000", r.mux)
+	http.ListenAndServe(r.config.Host+":"+strconv.Itoa(r.config.Port), r.mux)
 }
 
 func (r *RouteProvider) Vars(req *http.Request) map[string]string {

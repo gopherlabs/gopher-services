@@ -3,7 +3,7 @@ package services
 import (
 	"fmt"
 
-	"github.com/gopherlabs/gopher-framework"
+	f "github.com/gopherlabs/gopher-framework"
 	log "github.com/gopherlabs/gopher-providers-logrus"
 )
 
@@ -11,23 +11,22 @@ type LogProvider struct {
 	log log.Logger
 }
 
-func (l *LogProvider) Register(config map[string]interface{}) interface{} {
+func (l *LogProvider) Register(c *f.Container, config interface{}) interface{} {
+	conf := config.(f.ConfigLogger)
 	l.log = *log.New()
-	l.log.Level = log.DebugLevel
+	l.log.Level = log.Level(conf.LogLevel)
 	l.log.Formatter = &log.TextFormatter{
 		ForceColors:   true,
-		FullTimestamp: config["FullTimestamp"].(bool),
+		FullTimestamp: conf.FullTimestamp,
 	}
+	//	l.log.Info("|   > FullTimestamp: %t ", conf.FullTimestamp)
+	//	l.log.Info("|   > LogLevel: %s ", log.Level(conf.LogLevel).String())
 	return l
 }
 
 func (l *LogProvider) GetKey() string {
-	return framework.LOGGER
+	return f.LOGGER
 }
-
-//func (l *LogProvider) NewLog() framework.Loggable {
-//	return l
-//}
 
 func (l *LogProvider) Info(msg string, args ...interface{}) {
 	l.log.Info(sprintf(msg, args...))

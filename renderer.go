@@ -3,7 +3,7 @@ package services
 import (
 	"net/http"
 
-	"github.com/gopherlabs/gopher-framework"
+	f "github.com/gopherlabs/gopher-framework"
 	"github.com/gopherlabs/gopher-providers-render"
 )
 
@@ -11,13 +11,13 @@ type RenderProvider struct {
 	render *render.Render
 }
 
-func (r RenderProvider) Register(config map[string]interface{}) interface{} {
+func (r RenderProvider) Register(c *f.Container, config interface{}) interface{} {
 	r.render = render.New()
 	return r
 }
 
 func (l RenderProvider) GetKey() string {
-	return framework.RENDERER
+	return f.RENDERER
 }
 
 func getStatus(status []int) int {

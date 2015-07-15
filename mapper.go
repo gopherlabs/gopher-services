@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/gopherlabs/gopher-framework"
+	f "github.com/gopherlabs/gopher-framework"
 	cmap "github.com/gopherlabs/gopher-providers-map"
 )
 
@@ -9,13 +9,13 @@ type MapProvider struct {
 	cmap cmap.ConcurrentMap
 }
 
-func (p MapProvider) Register(config map[string]interface{}) interface{} {
+func (p MapProvider) Register(c *f.Container, config interface{}) interface{} {
 	p.cmap = cmap.New()
 	return p
 }
 
 func (p MapProvider) GetKey() string {
-	return framework.MAPPER
+	return f.MAPPER
 }
 
 func (p MapProvider) Get(key string) (value interface{}) {
