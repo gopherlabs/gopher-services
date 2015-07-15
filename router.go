@@ -22,11 +22,6 @@ func (r *RouteProvider) GetKey() string {
 	return framework.ROUTER
 }
 
-func (r *RouteProvider) NewRouter() f.Routable {
-	r.mux = mux.NewRouter()
-	return r
-}
-
 /*
 func (r *RouteProvider) SubRouter() f.Routable {
 	sub := new(RouteProvider)
