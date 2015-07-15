@@ -78,5 +78,9 @@ func (r *RouteProvider) Vars(req *http.Request) map[string]string {
 	return mux.Vars(req)
 }
 
+func (r *RouteProvider) Var(req *http.Request, name string) string {
+	return mux.Vars(req)[name]
+}
+
 func (r *RouteProvider) Use(mw f.MiddlewareHandler, args ...interface{}) {
 }
