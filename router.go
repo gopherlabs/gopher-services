@@ -30,9 +30,11 @@ func (r *RouteProvider) GetKey() string {
 	return framework.ROUTER
 }
 
-func (r *RouteProvider) SubRouter() f.Routable {
+func (r *RouteProvider) SubRouter(matcher f.GroupMatcher) f.Routable {
 	sub := new(RouteProvider)
-	sub.mux = r.mux.PathPrefix("/products").Subrouter()
+	if matcher.PathPrefix != "" {
+		sub.mux = r.mux.PathPrefix(matcher.PathPrefix).Subrouter()
+	}
 	return sub
 }
 
