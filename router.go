@@ -32,9 +32,14 @@ func (r *RouteProvider) GetKey() string {
 
 func (r *RouteProvider) SubRouter(matcher f.GroupMatcher) f.Routable {
 	sub := new(RouteProvider)
+	group := r.mux.NewRoute()
 	if matcher.PathPrefix != "" {
-		sub.mux = r.mux.PathPrefix(matcher.PathPrefix).Subrouter()
+		group.PathPrefix(matcher.PathPrefix)
 	}
+	if len(matcher.Queries) > 0 {
+		group.Queries(matcher.Queries...)
+	}
+	sub.mux = group.Subrouter()
 	return sub
 }
 
