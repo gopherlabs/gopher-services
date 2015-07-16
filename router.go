@@ -12,11 +12,13 @@ import (
 
 type RouteProvider struct {
 	http.Handler
-	mux    *mux.Router
-	config f.ConfigRouter
+	mux       *mux.Router
+	config    f.ConfigRouter
+	container *f.Container
 }
 
 func (r *RouteProvider) Register(c *f.Container, config interface{}) interface{} {
+	r.container = c
 	r.config = config.(f.ConfigRouter)
 	//	c.Log.Info("|   > Host: %s", r.config.Host)
 	//	c.Log.Info("|   > Port: %d", r.config.Port)
@@ -28,13 +30,15 @@ func (r *RouteProvider) GetKey() string {
 	return framework.ROUTER
 }
 
-/*
 func (r *RouteProvider) SubRouter() f.Routable {
 	sub := new(RouteProvider)
 	sub.mux = r.mux.PathPrefix("/products").Subrouter()
 	return sub
 }
-*/
+
+func (r *RouteProvider) Group(fn func(group interface{})) {
+	r.container.Log.Info("Inside Group() provider")
+}
 
 func (r *RouteProvider) Get(path string, fn f.HandlerFn, mw ...f.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("GET")
