@@ -36,10 +36,6 @@ func (r *RouteProvider) SubRouter() f.Routable {
 	return sub
 }
 
-func (r *RouteProvider) Group(fn func(group interface{})) {
-	r.container.Log.Info("Inside Group() provider")
-}
-
 func (r *RouteProvider) Get(path string, fn f.HandlerFn, mw ...f.MiddlewareHandler) {
 	r.mux.HandleFunc(path, fn).Methods("GET")
 }
