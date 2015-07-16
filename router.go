@@ -36,8 +36,17 @@ func (r *RouteProvider) SubRouter(matcher f.GroupMatcher) f.Routable {
 	if matcher.PathPrefix != "" {
 		group.PathPrefix(matcher.PathPrefix)
 	}
+	if matcher.Host != "" {
+		group.Host(matcher.Host)
+	}
+	if len(matcher.Methods) > 0 {
+		group.Methods(matcher.Methods...)
+	}
 	if len(matcher.Queries) > 0 {
 		group.Queries(matcher.Queries...)
+	}
+	if len(matcher.Schemes) > 0 {
+		group.Schemes(matcher.Schemes...)
 	}
 	sub.mux = group.Subrouter()
 	return sub
