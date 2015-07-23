@@ -21,11 +21,6 @@ func (r *RouteProvider) Register(c *f.Container, config interface{}) interface{}
 	r.container = c
 	r.config = config.(f.ConfigRouter)
 	r.mux = mux.NewRouter()
-	for pathName, pathValue := range r.config.StaticDirs {
-		pathPrefix := "/" + pathName + "/"
-		r.mux.PathPrefix(pathPrefix).Handler(http.StripPrefix(pathPrefix,
-			http.FileServer(http.Dir(pathValue))))
-	}
 	return r
 }
 
@@ -96,6 +91,14 @@ func (r *RouteProvider) NotFound(fn f.HandlerFn, mw ...f.MiddlewareHandler) {
 }
 
 func (r *RouteProvider) Serve() {
+	for pathName, pathValue := range r.config.StaticDirs {
+		pathPrefix := pathName
+		if pathName != "/" {
+			pathPrefix = pathPrefix + "/"
+		}
+		r.mux.PathPrefix(pathPrefix).Handler(http.StripPrefix(pathPrefix,
+			http.FileServer(http.Dir(pathValue))))
+	}
 	http.ListenAndServe(r.config.Host+":"+strconv.Itoa(r.config.Port), r.mux)
 }
 
@@ -108,4 +111,8 @@ func (r *RouteProvider) Var(req *http.Request, name string) string {
 }
 
 func (r *RouteProvider) Use(mw f.MiddlewareHandler, args ...interface{}) {
+}
+
+func (r *RouteProvider) Static(path string, dir string) {
+	r.config.StaticDirs[path] = dir
 }
