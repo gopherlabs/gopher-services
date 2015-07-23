@@ -20,9 +20,12 @@ type RouteProvider struct {
 func (r *RouteProvider) Register(c *f.Container, config interface{}) interface{} {
 	r.container = c
 	r.config = config.(f.ConfigRouter)
-	//	c.Log.Info("|   > Host: %s", r.config.Host)
-	//	c.Log.Info("|   > Port: %d", r.config.Port)
 	r.mux = mux.NewRouter()
+	for pathName, pathValue := range r.config.StaticDirs {
+		pathPrefix := "/" + pathName + "/"
+		r.mux.PathPrefix(pathPrefix).Handler(http.StripPrefix(pathPrefix,
+			http.FileServer(http.Dir(pathValue))))
+	}
 	return r
 }
 
