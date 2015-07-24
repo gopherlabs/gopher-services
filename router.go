@@ -90,7 +90,7 @@ func (r *RouteProvider) NotFound(fn f.HandlerFn, mw ...f.MiddlewareHandler) {
 	r.mux.NotFoundHandler = http.HandlerFunc(fn)
 }
 
-func (r *RouteProvider) Serve() {
+func (r *RouteProvider) applyStaticDirs() {
 	for pathName, pathValue := range r.config.StaticDirs {
 		pathPrefix := pathName
 		if pathName != "/" {
@@ -99,7 +99,15 @@ func (r *RouteProvider) Serve() {
 		r.mux.PathPrefix(pathPrefix).Handler(http.StripPrefix(pathPrefix,
 			http.FileServer(http.Dir(pathValue))))
 	}
-	http.ListenAndServe(r.config.Host+":"+strconv.Itoa(r.config.Port), r.mux)
+}
+
+func (r *RouteProvider) GetHttpHandler() http.Handler {
+	r.applyStaticDirs()
+	return r.mux
+}
+
+func (r *RouteProvider) ListenAndServe() {
+	http.ListenAndServe(r.config.Host+":"+strconv.Itoa(r.config.Port), r.GetHttpHandler())
 }
 
 func (r *RouteProvider) Vars(req *http.Request) map[string]string {
