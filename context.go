@@ -39,7 +39,7 @@ func (p ContextProvider) GetAllOk(r *http.Request) (map[interface{}]interface{},
 }
 
 func (p ContextProvider) Delete(r *http.Request, key interface{}) {
-	return context.Delete(r, key)
+	context.Delete(r, key)
 }
 
 func (p ContextProvider) Clear(r *http.Request) {

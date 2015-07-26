@@ -1,5 +1,6 @@
 package services
 
+/*
 import (
 	f "github.com/gopherlabs/gopher-framework"
 	cmap "github.com/gopherlabs/gopher-providers-map"
@@ -34,3 +35,4 @@ func (p MapProvider) Set(key string, value interface{}) {
 func (p MapProvider) Remove(key string) {
 	p.cmap.Remove(key)
 }
+*/
