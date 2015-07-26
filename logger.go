@@ -16,8 +16,9 @@ func (l *LogProvider) Register(c *f.Container, config interface{}) interface{} {
 	l.log = *log.New()
 	l.log.Level = log.Level(conf.LogLevel)
 	l.log.Formatter = &log.TextFormatter{
-		ForceColors:   true,
-		FullTimestamp: conf.FullTimestamp,
+		ForceColors:     true,
+		FullTimestamp:   true,
+		TimestampFormat: conf.TimestampFormat,
 	}
 	//	l.log.Info("|   > FullTimestamp: %t ", conf.FullTimestamp)
 	//	l.log.Info("|   > LogLevel: %s ", log.Level(conf.LogLevel).String())
