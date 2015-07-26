@@ -26,6 +26,11 @@ func (p ContextProvider) Get(r *http.Request, key interface{}) interface{} {
 	return context.Get(r, key)
 }
 
+func (p ContextProvider) Has(r *http.Request, key interface{}) bool {
+	_, ok := context.GetOk(r, key)
+	return ok
+}
+
 func (p ContextProvider) GetOk(r *http.Request, key interface{}) (interface{}, bool) {
 	return context.GetOk(r, key)
 }
